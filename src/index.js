@@ -1,5 +1,6 @@
-import ReactDom from "react-dom";
+import ReactDOM from "react-dom";
+import { createGlobalStyle } from "styled-components";
 
-import App from "./App";
+import App from "./App.js";
 
-ReactDom.render(<App />, document.querySelector('.root'));
+ReactDOM.render(<App />, document.querySelector('.root'));
