@@ -11,7 +11,13 @@ export default function Header() {
 const Logo = Styled.div`
     display: flex;
     justify-content: center;
-    margin: 34px 0; 
+    margin-top: 34px 0; 
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: white;
 
     img {
         width: 180px;
