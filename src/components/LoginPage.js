@@ -1,16 +1,18 @@
-import { useState, useEffect } from 'react';
+import { useState, useContext } from 'react';
 import Styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 import Header from './Header.js';
 import Form from './Form.js';
+import UserContext from '../contexts/UserContext';
 
 const STATUS_UNAUTHORIZED = 401;
 const STATUS_NOT_FOUND = 422;
 
-export default function LoginPage({ userData, setUserData }) {
+export default function LoginPage() {
     // State Variables
+    const { userData, setUserData } = useContext(UserContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [chances, setChances] = useState(4);
@@ -20,6 +22,8 @@ export default function LoginPage({ userData, setUserData }) {
     if (chances === 0) {
         window.location.reload();
     }
+    const navigate = useNavigate();
+
     const login = e => {
         e.preventDefault();
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", 
@@ -28,9 +32,11 @@ export default function LoginPage({ userData, setUserData }) {
             password
         })
         promise.then(r => {
-            setUserData({...r})
+            setUserData({...r.data})
+            navigate("/hoje");
         })
         promise.catch(e => {
+            alert("Incorrect entry data") // requisito obrigatório. 
             if(e.response.status === STATUS_NOT_FOUND) {
                 setUsernotfound(true);
                 setChances(4);
@@ -41,7 +47,7 @@ export default function LoginPage({ userData, setUserData }) {
             }
         })
     }
-    console.log(userData)
+
     // UI
     return (
         <>
@@ -91,5 +97,4 @@ const LoginPageS = Styled.div`
 const ErrorMessage = Styled.span`
     color: red;
     margin: 6px 0;
-
 `;

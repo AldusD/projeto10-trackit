@@ -37,7 +37,7 @@ const FormS = Styled.form`
         background-color: #52B6FF;
         border: none;
         border-radius: 6px;
-        margin-bottom: 24px;
+        margin-bottom: 14px;
 
         font-size: 22px;
         color: white;

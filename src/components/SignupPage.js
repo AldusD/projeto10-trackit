@@ -1,7 +1,7 @@
 import Styled from "styled-components";
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Header from "./Header";
 import Form from "./Form";
@@ -69,11 +69,24 @@ export default function SignupPage() {
                         required></input>
                     <button onClick={submit}>Sign Up!</button>
                 </Form>
+                    <Link to="/">
+                        <button className="minor-button" >Go back</button>
+                    </Link>
             </SignupPageS>
         </>
     );
 }
 
 const SignupPageS = Styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: 200px;
+
+    .minor-button{
+        margin-bottom: 14px;
+        background-color: white;
+        border: none;
+        color: #52B6FF;
+    }
 `;
