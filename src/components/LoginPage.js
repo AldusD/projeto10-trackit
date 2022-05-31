@@ -12,7 +12,7 @@ const STATUS_NOT_FOUND = 422;
 
 export default function LoginPage() {
     // State Variables
-    const { userData, setUserData } = useContext(UserContext);
+    const { userData, setUserData, API } = useContext(UserContext);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [chances, setChances] = useState(4);
@@ -26,7 +26,7 @@ export default function LoginPage() {
 
     const login = e => {
         e.preventDefault();
-        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login", 
+        const promise = axios.post(`${API}/auth/login`, 
         {
             email,
             password
@@ -36,6 +36,7 @@ export default function LoginPage() {
             navigate("/hoje");
         })
         promise.catch(e => {
+            console.log(API)
             alert("Incorrect entry data") // requisito obrigatório. 
             if(e.response.status === STATUS_NOT_FOUND) {
                 setUsernotfound(true);

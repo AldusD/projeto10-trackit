@@ -1,5 +1,6 @@
-import { useState, useContext} from 'react';
+import { useEffect, useState, useContext} from 'react';
 import Styled from "styled-components";
+import axios from 'axios';
 
 import NewHabit from './newHabit';
 import UserHeader from "./UserHeader";
@@ -9,9 +10,24 @@ import UserContext from '../contexts/UserContext';
 export default function Habits() {
     // SV
     const [creation, setCreation] = useState(<></>) 
-    const {userData} = useContext(UserContext);
-    // logic
+    const {userData, allHabits, setAllHabits, API } = useContext(UserContext);
     
+    // logic
+    useEffect(() => {
+        const promise = axios.get(`${API}/habits`, {
+            headers: {
+                Authorization: `Bearer ${userData.token}`
+            }
+        })
+        promise.then(r => {
+            console.log(r)
+            setAllHabits(r.data)
+        })
+        promise.catch(e => console.log(e))
+    },[])
+
+
+    // UI
     return(
 
         <HabitsS>
@@ -21,7 +37,7 @@ export default function Habits() {
                 <button onClick={() => setCreation(<NewHabit setCreation={setCreation} />)}>+</button>
             </Title>   
                 {creation}
-            {(true) ? <p>You don't have any habits, start an habit, start Tracking It!</p> : <></> }
+            {(allHabits.length === 0) ? <p>You don't have any habits, start an habit, start Tracking It!</p> : <></> }
             <Menu />
         </HabitsS>
     );

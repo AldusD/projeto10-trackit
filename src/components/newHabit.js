@@ -5,10 +5,10 @@ import axios from "axios";
 
 import UserContext from "../contexts/UserContext";
 
-export default function NewHabit({setCreation}) {
+export default function NewHabit({ setCreation }) {
     // Sv
     const [habit, setHabit] = useState("");
-    const {userData} = useContext(UserContext);
+    const { userData, API } = useContext(UserContext);
     
     // logic
     const [daysStatus, setDaysStatus] = useState({
@@ -45,8 +45,8 @@ export default function NewHabit({setCreation}) {
             name: habit,
             days: arrDaysHabit
         }
-        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",body, config)
-        promise.then(r => console.log(r))
+        const promise = axios.post(`${API}/habits`,body, config)
+        promise.then(r => setCreation(<></>))
         promise.catch(e => console.log(e, config, body))
     }
 
@@ -56,31 +56,31 @@ export default function NewHabit({setCreation}) {
         <Habit>
             <input placeholder="Habit's name" value={habit} onChange={e => setHabit(e.target.value)} ></input>
             <Days>
-                <Day id="sun" selected={daysStatus.sun} onClick={() => setDaysStatus({
+                <Day selected={daysStatus.sun} onClick={() => setDaysStatus({
                     ...daysStatus,
                     sun: !daysStatus.sun
                 })}>S</Day>
-                <Day id="mon" selected={daysStatus.mon} onClick={() => setDaysStatus({
+                <Day selected={daysStatus.mon} onClick={() => setDaysStatus({
                     ...daysStatus,
                     mon: !daysStatus.mon
                 })}>M</Day>
-                <Day id="tue" selected={daysStatus.tue} onClick={() => setDaysStatus({
+                <Day selected={daysStatus.tue} onClick={() => setDaysStatus({
                     ...daysStatus,
                     tue: !daysStatus.tue
                 })}>T</Day>
-                <Day id="wed" selected={daysStatus.wed} onClick={() => setDaysStatus({
+                <Day selected={daysStatus.wed} onClick={() => setDaysStatus({
                     ...daysStatus,
                     wed: !daysStatus.wed
                 })}>W</Day>
-                <Day id="thu" selected={daysStatus.thu} onClick={() => setDaysStatus({
+                <Day selected={daysStatus.thu} onClick={() => setDaysStatus({
                     ...daysStatus,
                     thu: !daysStatus.thu
                 })}>T</Day>
-                <Day id="fri" selected={daysStatus.fri} onClick={() => setDaysStatus({
+                <Day selected={daysStatus.fri} onClick={() => setDaysStatus({
                     ...daysStatus,
                     fri: !daysStatus.fri
                 })}>F</Day>
-                <Day id="sat" selected={daysStatus.sat} onClick={() => setDaysStatus({
+                <Day selected={daysStatus.sat} onClick={() => setDaysStatus({
                     ...daysStatus,
                     sat: !daysStatus.sat
                 })}>S</Day>

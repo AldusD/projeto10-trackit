@@ -1,5 +1,6 @@
 import Styled from "styled-components";
 import logo from '../assets/logo-all.png';
+
 export default function Header() {
     return (
         <Logo>

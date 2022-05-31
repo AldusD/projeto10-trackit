@@ -11,11 +11,20 @@ import UserContext from "./contexts/UserContext";
 import Habits from './components/Habits';
 
 export default function App() {
+    const API = "https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit";
     // State variables
     const [userData, setUserData] = useState([]);
+    const [habits, setHabits] = useState([])
+    const [allHabits, setAllHabits] = useState([]);
+    const [doneCount, setDoneCount] = useState(0);
 
     return (
-        <UserContext.Provider value={{userData: userData, setUserData: setUserData}}>
+        <UserContext.Provider value={
+                                    {userData, setUserData, 
+                                    habits, setHabits, 
+                                    allHabits, setAllHabits,
+                                    doneCount, setDoneCount,
+                                    API}}>
             <BrowserRouter>
                 <AppS>
                     <Routes>    
